@@ -1,0 +1,12 @@
+#exportPattern("^[[:alpha:]]+")
+
+export(
+			"inst.libs",
+			"chiTail",
+			"FTail",
+			"normTail",
+			"inference",
+			"slds.exam",
+			"slds.fun"
+		
+)
