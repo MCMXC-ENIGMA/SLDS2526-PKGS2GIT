@@ -1,0 +1,212 @@
+---
+title: "Statistical Learning for Data Science Exam"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, error=TRUE)
+```
+
+The duration of the exam is 120 minutes. For most exercises you are required to provide R code: write your code in the assigned R code chunk. For some exercises you are required to provide a textual answer: type your answer in the space that follows 
+
+**Your answer**.
+
+In the following R chunk please fill in the required information otherwise the file will not be knitted
+
+```{r, error=FALSE}
+matricola <- 
+name <- 
+surname <- 
+if (!exists("matricola") | !exists("name") | !exists("surname"))
+  stop("Please, insert your information in the first chunk.")
+```
+
+```{r, cache=FALSE}
+library(SLDS2425)
+library(tidyverse)
+```
+
+# Exercise 1
+Autism, also known as autism spectrum disorder, is a neurodevelopmental disorder characterized by differences or difficulties in social communication and interaction, a preference for predictability and routine, sensory processing differences, focused interests, and repetitive behaviors. We have at our disposal a dataset `autism_screening` from a large screening study of autism. The dataset includes the questionnaire results as well as relevant demographical information. The following is a list with the variables' name and a brief description
+
+  * A1_Score to A10_Score - Score based on Autism Spectrum Quotient (AQ) 10 item screening tool
+  * age - Age of the patient in years
+  * gender - Gender of the patient
+  * ethnicity - Ethnicity of the patient
+  * jaundice - Whether the patient had jaundice at the time of birth
+  * autism - Whether the patient has been diagnosed with autism
+  * contry_of_res - Country of residence of the patient
+  * used_app_before - Whether the patient has undergone a screening test before
+  * result - Score for AQ1-10 screening test
+  * age_desc - Age of the patient
+  * relation - Relation of patient who completed the test
+
+Load the dataset by typing `data(autism_screening)` and answer the following questions.  
+
+## a) 
+How many cases of autism are present in the dataset?
+
+**Your answer:**
+
+```{r}
+```
+
+## b) 
+Does there seem to be a relation between gender and the prevalence of autism? Investigate this hypothesis with a suitable graphical display of data and a numerical summary. 
+
+**Your answer:**
+
+```{r}
+```
+
+## c)
+Is there a relation between age and autism? Again, investigate this hypothesis with both numerical and graphical data summaries. 
+
+**Your answer:**
+
+```{r}
+```
+
+## d) 
+Do you notice something unusual about the variable `age`? What is a plausible explanation? 
+
+**Your answer:**
+
+
+## e)
+How many different countries of residence are present in the dataset?
+
+**Your answer:**
+
+```{r}
+```
+
+## f) 
+What ethnicity shows the highest prevalence of autism?
+
+**Your answer:**
+
+```{r}
+```
+
+## g)
+Columns 1-10 represent scores on a questionnaire used by health professionals to screen for autism. Does the total score `result` represent a useful information for predicting the presence of autism? What plots are useful to get a tentative answer? What formal statistical tools can you use to answer this question?  
+How do you asses the significance of your findings? 
+
+**Your answer:**
+```{r}
+```
+
+
+# Exercise 2
+A data analyst has processed some data regarding supermarket sales (in dollars) of two categories of pasta, "FreshCutPasta" and "FreshNoodles". The response variable is a dummy variable that takes the value '0' if the sales of "FreshCutPasta" are greater than those of "FreshNoodles" and '1' otherwise. The covariate is categorical and refers to the different ingredients used to make the pasta: 'plain' (wheat) and "whole" (whole wheat). In the chunk below you are given some information regarding the output of the analysis, in particular
+
+  * the summary of a logistic regression model estimated by the analyst. Some entries are purposedly shown as 'NA'
+  * the vector with the values of the response variable (the variable containing the values is called `pasta`)
+  * the vector with the values of the explanatory variable (the variable containing the values is called `flavour`)
+
+To visualize the summary and get access to the variables containing the values of the response variable and of the explanatory variable *you have to compile the code*.
+  
+```{r echo=TRUE}
+library(SLDS2425)
+set.seed(matricola)
+obj <- slds.fun(matricola, 1)
+pasta <- obj$pasta
+flavour <- obj$flavour
+```
+
+## (a) 
+By using the information included in the summary above, provide the interpretation of the coefficients in the model in terms of the odds ratio (no coding needed, just plain text)
+
+**Your answer**:
+
+
+## (b)
+By using the information included in the summary of the estimated logistic regression model, state whether it is more likely to sell more `FreshNoodles` than `FreshCutPasta` when the ingredient is `wheat` or `whole wheat`
+
+**Your answer**:
+
+
+## (c)
+Given that the significance of the coefficients is not given in the summary, run a suitable exploratory analysis in order to gain some insights regarding the usefulness of the explanatory variable. Motivate your answer.
+
+**Your answer**:
+
+```{r echo=TRUE}
+```
+
+
+## (d)
+Establish whether a logistic regression model with the intercept only is to be preferred to the model that includes the explanatory variable `flavour`. Estimate the models, compare them by using a suitable metric and motivate your answer.
+
+
+**Your answer**:
+
+```{r echo=TRUE}
+```
+
+# Exercise 3
+The `leukemia` dataset contains gene expression data to be used to classify cancer types. The available data consists of 72 tissue samples biopsy (the statistical units) and of 3572 covariates, corresponding to the expression of 3572 genes. The dataset contains
+
+  * The response variable `Y`: it takes on the values 0 (no cancer) or 1 (cancer)
+  * The predictors `x.1` to `x.3572`: each predictor take values on the real line. The value indicates the level of expression of the corresponding gene.
+
+The aim of the analysis consists in building a classifier to predict the whether a patient has a tumor based on a tissue sample biopsy and the gene expression data that can be obtained from it.
+
+
+## (a) 
+Do not modify this chunk.
+```{r echo=TRUE}
+library(SLDS2425)
+data(leukemia)
+out <- slds.fun(matricola, 2, leukemia)
+```
+
+A Lasso regression model has been fit to the data. The best fit includes just two covariates, not including the intercept, and the estimated coefficients are
+
+  * `r round(out$e1,3)` for variable `r out$v1`
+  * `r round(out$e2,3)` for variable `r out$v2`
+
+Argue whether the value of the penalty parameter equal to `r out$pen` allows to get the given estimates (just text, no code needed)
+
+**Your answer**:
+
+## (b) 
+Consider the variables `r out$v1` and `r out$v2`. Discuss whether or not the variables should be standardized prior to fit a Lasso regression model. You can use both code and text. Motivate your answer
+
+**Your answer**:
+```{r echo=TRUE}
+```
+
+
+## (c)    
+Estimate a statistical model by using shrinkage methods. Select the best model according to a suitable criteria. 
+
+**Your answer**:
+
+```{r echo=TRUE}
+```
+
+## (d)
+Build a classifier to predict whether a sample of tissue contains cancer cells. Evaluate the overall prediction accuracy of the proposed classifier. Comment on the results.
+
+**Your answer**:
+
+```{r echo=TRUE}
+```
+
+
+# Session Info
+
+Do not modify the chunk below
+```{r}
+Sys.info()
+#last compiled
+date()
+#student info
+paste(name, surname, "-", matricola, sep=" ")
+```
+
