@@ -1171,3 +1171,164 @@ normTail <- function(m=0, s=1, L=NULL, U=NULL, M=NULL, df=1000, curveColor=1, bo
 
 	abline(h=0)
 }
+
+make_exam_gui <- function(){
+
+
+  out <- try(inst.libs())
+  Sys.sleep(3.5)
+
+  if(!inherits(out, "try-error")){
+
+  resout <- dlg_message(
+    "By pressing 'Ok' you agree that the output matches 
+      the one displayed by the instructors")$res
+
+  #if(resout=="ok"){
+
+  suppressWarnings(suppressMessages(require(svDialogs)))
+  #act_psswd <- "shunt"
+  #locate_text <- system.file("rmd", "Exam_Call_4.Rmd", package = "SLDS2425")
+  locate_text <- system.file("rmd", "slds_call.zip", package = "SLDS2425")
+
+  limit <- 2
+  for(j in 1:limit){
+  #Name
+  for(i in 1:limit){
+    name <- dlg_input("First name")$res
+     if(length(name)>0){
+        break
+     }else{
+      if(i==limit)
+        stop("Exceeded maximum number of attempts to input a valid value\n")
+     }
+  }
+  #Surname
+  for(i in 1:limit){
+    surname <- dlg_input("Surname")$res
+     if(length(surname)>0){
+        break
+     }else{
+      if(i==limit)
+        stop("Exceeded maximum number of attempts to input a valid value\n")
+     }
+  }
+  #Matriculation
+  for(i in 1:limit){
+    mn <- dlg_input("Matriculation number")$res
+     if(length(mn)>0){
+        break
+     }else{
+      if(i==limit)
+        stop("Exceeded maximum number of attempts to input a valid value\n")
+     }
+  }
+
+
+  check_point <- dlg_message(c("Review your data", 
+    paste0("Name: ", name),
+    paste0("Surname: ", surname),
+    paste0("Matriculation number: ", mn),
+    "Is all correct?"
+    ), "yesno")$res
+
+    if(check_point=="no"){
+        dlg_message("You are going to be asked to input your data again") 
+    }else{
+      break
+    }
+  
+  }
+
+  set.seed(mn)
+  file_name <- paste0(paste(name, surname, mn, round(runif(1,0,10),2), sep="_"),".Rmd") 
+# file_name <- paste0(paste(name, surname, mn, sep="_"),".Rmd") 
+  cond <- 1
+  while(cond){
+  res <- dlg_message(
+    c("The exam text will be saved in directory\n",
+    getwd(),
+    "\nThe file name will be\n",
+      file_name,
+    "\nBy pressing 'Ok' you agree to be aware about where the file is located and its name"),"okcancel")$res
+
+    if(res=="cancel"){
+      dlg_message("The information will be displayed again. Read carefully and press 'Ok'")
+    }else{
+      cond <- 0
+    }
+  }
+
+
+  anothercheck <- dlg_message("You are going to get the text of the exam in Rmd format. 
+      That file needs to be suitably modified to answer the questions 
+      and then knitted to produce the .html file required to submit your test. 
+      Be aware that the .Rmd file will be knitted irrespective of errors in 
+      the R code, so it is your responsibility to check painstakingly 
+      what you are submitting.")$res
+
+
+
+  PATTERNS <- list("matricola <- ",
+          "\\<name\\ <- ",
+          "\\<surname\\ <- ")
+
+  STRINGS <- list("matricola <- ",
+          "name <- ",
+          "surname <- ")
+
+  name <- paste0("'", name,"'")
+  surname <- paste0("'", surname,"'")
+  STRING2SUB <- list(mn, name, surname)
+
+
+   for(i in 1:limit){
+     psswd <- dlg_input("Password")$res
+      if(length(psswd)>0){
+
+         suppressMessages(vltr_out <- system(command = 
+          paste0("unzip -o -P ", psswd, " ", locate_text), 
+          wait = TRUE, ignore.stdout = TRUE))
+
+         if(vltr_out==0){
+            print(file_name)
+            file.rename("Exam_Call.Rmd",file_name)
+            #write info into Rmd file
+            for(j in 1:length(PATTERNS)){
+              tx  <- readLines(file_name)
+              tx2  <- gsub(pattern = PATTERNS[[j]], 
+                     replace = paste0(STRINGS[[j]], STRING2SUB[[j]]), x = tx)
+              writeLines(tx2, con=file_name)
+            }
+            dlg_message(c("Exam successfully created. The file is in folder\n",getwd()))
+            file.edit(file_name)
+
+            dlg_message("File automatically opened in Rstudio\n")
+            break
+          }#end out==0
+      }#end input passwd
+    }#end for loop
+
+
+    if(length(psswd)>0){
+      if((i==limit) & (vltr_out!=0))
+        dlg_message("Exam not created. Exceeded maximum number of attempts to input the correct password. Run the function again.")  
+    }
+
+    #}
+  }
+    
+
+
+}
+
+
+slds.exam <- function(){
+  make_exam_gui()
+}
+
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("This is version ", packageVersion(pkgname), 
+                        " of ", pkgname)
+}
