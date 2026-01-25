@@ -14,8 +14,8 @@ inst.libs <- function(pkgs=NULL){
      }
 
 
-  rmarkdown::render(system.file("rmd", "test.Rmd", package = "SLDS2324"))
-  browseURL(system.file("rmd", "test.html", package = "SLDS2324"))
+  rmarkdown::render(system.file("rmd", "test.Rmd", package = "SLDS2526"))
+  browseURL(system.file("rmd", "test.html", package = "SLDS2526"))
 
 }
 
