@@ -1,0 +1,41 @@
+---
+title: "Test file"
+author: "Knitted on `r format(Sys.time(), '%d %B, %Y, %X')`"
+#date: 
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, error=TRUE)
+lst <- c("tidyverse", "ISLR", "FNN", "glmnet", "kernlab", "pROC", "openintro", "BHH2")
+sapply(lst, function(x) require(x))
+```
+
+
+
+
+```{r matricola, error=TRUE, echo=FALSE}
+library(SLDS2526)
+R.version$version.string
+cat("\n")
+print("Package SLDS2526 version")
+packageVersion("SLDS2526")
+cat("\n")
+print("Functions in SLDS2526")
+ls("package:SLDS2526")
+print("Datasets in SLDS2526")
+(lst <- data(package = "SLDS2526")$results[ , "Item"])
+print("done")
+
+library(openintro)
+data(ts_dat)
+glimpse(ts_dat)
+data(petfood)
+glimpse(petfood)
+data(weekly)
+glimpse(weekly)
+
+rm(list=ls())
+```
