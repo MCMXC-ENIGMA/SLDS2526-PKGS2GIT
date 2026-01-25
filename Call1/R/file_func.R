@@ -1176,6 +1176,7 @@ make_exam_gui <- function(){
 
 
   out <- try(inst.libs())
+  print(out)
   Sys.sleep(3.5)
 
   if(!inherits(out, "try-error")){
