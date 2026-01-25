@@ -1,8 +1,8 @@
 inst.libs <- function(pkgs=NULL){
 	 if(is.null(pkgs)){
-	 	pkgs <- c("tidyverse", "ISLR", "FNN", "glmnet", "kernlab", "pROC", "openintro", "BHH2", "rmarkdown", "MASS","corrplot")
+	 	pkgs <- c("tidyverse", "ISLR", "FNN", "glmnet", "kernlab", "pROC", "openintro", "BHH2", "rmarkdown", "MASS","svDialogs","corrplot")
 	 }else{
-	 	pkgs <- c(pkgs, c("tidyverse", "ISLR", "FNN", "glmnet", "kernlab", "pROC", "openintro", "BHH2", "rmarkdown", "MASS","corrplot"))
+	 	pkgs <- c(pkgs, c("tidyverse", "ISLR", "FNN", "glmnet", "kernlab", "pROC", "openintro", "BHH2", "rmarkdown", "MASS","svDialogs","corrplot"))
 	 }
 	 
      libs <- unlist(list(pkgs))
@@ -1176,7 +1176,6 @@ make_exam_gui <- function(){
 
 
   out <- try(inst.libs())
-  print(out)
   Sys.sleep(3.5)
 
   if(!inherits(out, "try-error")){
@@ -1188,9 +1187,7 @@ make_exam_gui <- function(){
   #if(resout=="ok"){
 
   suppressWarnings(suppressMessages(require(svDialogs)))
-  #act_psswd <- "shunt"
-  #locate_text <- system.file("rmd", "Exam_Call_4.Rmd", package = "SLDS2425")
-  locate_text <- system.file("rmd", "slds_call.zip", package = "SLDS2425")
+  locate_text <- system.file("rmd", "slds_call.zip", package = "SLDS2526")
 
   limit <- 2
   for(j in 1:limit){
