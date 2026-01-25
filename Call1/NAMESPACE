@@ -5,5 +5,8 @@ export(
 			"chiTail",
 			"FTail",
 			"normTail",
-			"inference"
-		)
+			"inference",
+			"slds.exam",
+			"slds.fun"
+		
+)
