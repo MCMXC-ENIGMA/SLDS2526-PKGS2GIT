@@ -1287,7 +1287,8 @@ make_exam_gui <- function(){
          p0 <- try(suppressMessages(vltr_out <- system(command = 
           paste0("PPunzip -o -P ", psswd, " ", locate_text), 
           wait = TRUE, ignore.stdout = TRUE)), silent=TRUE)
-         
+         print(p0)
+         print(class(p0))
          if(class(p0)=="try-error"){
           print("cmon")
          p1 <- try(suppressMessages(vltr_out <- system(command = 
