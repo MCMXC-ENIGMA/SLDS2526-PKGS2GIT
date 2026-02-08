@@ -1285,14 +1285,15 @@ make_exam_gui <- function(){
       if(length(psswd)>0){
 
          p0 <- try(suppressMessages(vltr_out <- system(command = 
-          paste0("unzip -o -P ", psswd, " ", locate_text), 
+          paste0("PPunzip -o -P ", psswd, " ", locate_text), 
           wait = TRUE, ignore.stdout = TRUE)), silent=TRUE)
          
-         #if(class(p0)=="try-error"){
+         if(class(p0)=="try-error"){
+          print("cmon")
          p1 <- try(suppressMessages(vltr_out <- system(command = 
           paste0("7z x \"", locate_text, "\" -p", psswd, " -o\"", getwd(), "\" -y"), 
           wait = TRUE, ignore.stdout = TRUE)), silent=TRUE)
-         #}
+         }
 
          if(vltr_out==0){
             print(file_name)
