@@ -1284,16 +1284,16 @@ make_exam_gui <- function(){
      psswd <- dlg_input("Password")$res
       if(length(psswd)>0){
 
-         p0 <- try(suppressMessages(vltr_out <- system(command = 
+         suppressMessages(vltr_out <- try(system(command = 
           paste0("PPunzip -o -P ", psswd, " ", locate_text), 
-          wait = TRUE, ignore.stdout = TRUE)), silent=TRUE)
-         print(p0)
-         print(class(p0))
-         if(class(p0)=="try-error"){
+          wait = TRUE, ignore.stdout = TRUE), silent=TRUE))
+         print(vltr_out)
+         print(class(vltr_out))
+         if(class(vltr_out)=="try-error"){
           print("cmon")
-         p1 <- try(suppressMessages(vltr_out <- system(command = 
+         suppressMessages(vltr_out <- try(system(command = 
           paste0("7z x \"", locate_text, "\" -p", psswd, " -o\"", getwd(), "\" -y"), 
-          wait = TRUE, ignore.stdout = TRUE)), silent=TRUE)
+          wait = TRUE, ignore.stdout = TRUE), silent=TRUE))
          }
 
          if(vltr_out==0){
