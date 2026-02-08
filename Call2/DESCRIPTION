@@ -1,0 +1,14 @@
+Package: SLDS2526
+Type: Package
+Title: Statistical Learning for Data Science (2025-2026)
+Version: 0.2.0
+Author: Nicola Lunardon and Vera Djordjilović
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: false
+RoxygenNote: 7.2.3
+NeedsCompilation: no
+Packaged: 2024-05-31 09:08:59 UTC; nicolalunardon
