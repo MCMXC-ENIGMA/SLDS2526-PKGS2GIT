@@ -1,0 +1,374 @@
+---
+title: "Statistical Learning for Data Science Exam — Solutions"
+output:
+  html_document:
+    toc: true
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+```
+
+The duration of the exam is 120 minutes. For most exercises you are
+required to provide R code: write your code in the assigned R code
+chunk. For some exercises you are required to provide a textual answer:
+type your answer in the space that follows **Your answer**.
+
+```{r prep}
+matricola <- 
+name <- 
+surname <- 
+
+if (!exists("matricola") || !exists("name") || !exists("surname") ||
+    !is.numeric(matricola) || length(matricola) != 1 ||
+    !nzchar(name) || !nzchar(surname)) {
+  stop("Please insert valid student information in the first chunk.")
+}
+```
+
+```{r packages, cache=FALSE}
+library(ISLR)
+library(tidyverse)
+```
+
+# Exercise 1
+
+The `Wage` dataset in the ISLR package contains wage and demographic
+information for 3000 male workers in the Mid-Atlantic region of the
+United States. Each row represents one worker.
+
+Consider the following variables:
+
+* `year`: year in which the observation was recorded;
+* `age`: worker's age;
+* `education`: education level;
+* `jobclass`: type of occupation, either industrial or information-based;
+* `health`: worker's self-reported health status;
+* `health_ins`: whether the worker has health insurance;
+* `wage`: worker's wage index.
+
+Load the data using:
+
+```{r load-wage}
+data(Wage)
+```
+
+## (a)
+
+Determine:
+
+* The number of observations and variables.
+* The type of each variable listed above.
+* Whether any of these variables contain missing values.
+
+Briefly explain the difference between a numerical variable and a
+categorical variable.
+
+**Your answer:**
+
+```{r ex1a}
+
+```
+
+
+
+## (b)
+
+Create a new categorical variable named `age_group` with the following categories:
+
+* `younger than 35` for workers younger than 35;
+* `35–49` for workers aged between 35 and 49;
+* `50 or older` for workers aged 50 or older.
+
+Report the number of workers in each age group.
+
+**Your answer:**
+
+```{r ex1b}
+
+```
+
+
+
+## (c)
+
+For each education level, calculate:
+
+* the number of workers;
+* the mean wage;
+* the median wage;
+* the standard deviation of wage.
+
+Arrange the resulting table from the highest to the lowest mean wage.
+
+Which education group has the highest average wage? Is the ordering of
+the mean wages the same as the ordering of the median wages?
+
+**Your answer:**
+
+```{r ex1c}
+
+```
+
+
+
+## (d)
+
+Construct a histogram of `wage`. Describe the shape of the distribution. Comment on its center,
+variability, skewness, and any potentially unusual observations.
+
+**Your answer:**
+
+```{r ex1d}
+
+ 
+```
+
+
+## (e)
+
+Construct side-by-side boxplots showing the distribution of `wage` for
+each education level.
+
+**Your answer:**
+
+```{r ex1e}
+
+```
+
+## (f)
+
+With respect to the previous point, comment on:
+
+* differences in median wage;
+* differences in wage variability;
+* the presence of potential outliers.
+
+Does the graph suggest that obtaining more education causes wages to
+increase? Explain briefly.
+
+**Your answer:**
+
+
+## (g)
+
+Construct a scatterplot of `wage` against `age`. Describe the
+relationship.
+
+**Your answer:**
+
+```{r ex1g}
+
+```
+
+
+
+# Exercise 2
+
+In this exercise, the objective is to construct and assess a model for
+predicting wage.
+
+## (a)
+
+Fit a linear regression model with `wage` as the response variable and
+`age` as the explanatory variable. Display the model summary, interpret
+the coefficient of `age`, and comment on its statistical significance.
+
+**Your answer:**
+
+```{r ex2a}
+
+```
+
+
+
+## (b)
+
+The relationship between `age` and `wage` might not be completely
+linear. Fit a quadratic model and compare it with the linear model.
+Which model do you prefer? Justify your answer.
+
+**Your answer:**
+
+```{r ex2b}
+
+```
+
+
+
+## (c)
+
+Add `education` to the preferred model. State the reference category
+used by R and interpret one of the coefficients associated with
+education.
+
+**Your answer:**
+
+```{r ex2c}
+
+```
+
+
+## (d)
+
+Add `jobclass` to the model from part (c). Compare the two models. Does
+`jobclass` improve the model fit after accounting for age
+and education?
+
+**Your answer:**
+
+```{r ex2d}
+
+```
+
+
+
+## (e)
+
+Use the final model to predict the wage of a 40-year-old worker with an
+education level of `4. College Grad` and job class `2. Information`.
+Describe the difference between the point prediction and a prediction
+interval.
+
+**Your answer:**
+
+```{r ex2e}
+
+```
+
+
+
+# Exercise 3
+
+The `Smarket` dataset in the ISLR package contains daily percentage
+returns for the S&P 500 stock market index between 2001 and 2005. Each
+row represents one trading day.
+
+Consider the following variables:
+
+* `Year`: year in which the observation was recorded;
+* `Lag1`: percentage return on the previous trading day;
+* `Lag2`: percentage return two trading days earlier;
+* `Volume`: daily trading volume;
+* `Today`: percentage return on the current trading day;
+* `Direction`: whether the market went `Up` or `Down` on the current
+  trading day.
+
+The objective is to predict market direction using information
+available from previous trading days.
+
+Load the data using:
+
+```{r load-smarket}
+data(Smarket)
+```
+
+## (a)
+
+Determine:
+
+* the number of observations and variables;
+* the type of the response variable `Direction`;
+* the number and proportion of observations for which the market went
+  `Up` and `Down`.
+
+Is the response variable approximately balanced?
+
+**Your answer:**
+
+```{r ex3a}
+
+```
+
+
+
+## (b)
+
+Create a training set containing all observations from 2001 to 2004 and
+a test set containing all observations from 2005.
+
+Report the number of observations in each dataset.
+
+Explain briefly why using earlier observations for training and later
+observations for testing is appropriate in this application.
+
+**Your answer:**
+
+```{r ex3b}
+
+```
+
+
+## (c)
+
+Using the training data, estimate a logistic regression model in which
+`Direction` is the response variable and `Lag1` and `Lag2` are the input
+variables.
+
+Display the model summary.
+
+Interpret the estimated coefficient of `Lag2`. Which input variables,
+if any, are statistically significant at the 5% level?
+
+**Your answer:**
+
+```{r ex3c}
+
+```
+
+
+## (d)
+
+Use the fitted logistic regression model to predict the probability that
+the market goes `Up` for each observation in the test set.
+
+Classify an observation as:
+
+* `Up` if the predicted probability is greater than 0.5;
+* `Down` otherwise.
+
+Construct a confusion matrix comparing the observed and predicted
+directions.
+
+**Your answer:**
+
+```{r ex3d}
+
+
+
+```
+
+
+
+## (e)
+
+Calculate the classification accuracy of the logistic regression model
+on the test set.
+
+Next, consider a simple benchmark classifier that always predicts the
+most frequent direction in the training set. Calculate the test accuracy
+of this benchmark classifier.
+
+Does the logistic regression model perform better than the benchmark?
+Briefly comment on the predictive usefulness of the model.
+
+**Your answer:**
+
+```{r ex3e}
+
+```
+
+
+
+# Session Info
+
+Do not modify the chunk below
+```{r}
+Sys.info()
+```
